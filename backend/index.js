@@ -1,11 +1,14 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const userRoutes = require('./routes/userRoutes');
+const playerRoutes = require('./routes/playerRoutes');
+const { checkUser } = require('./middleware/authMiddleware');
 const connectDB = require('./config/db');
 
 const app = express();
+
+const PORT = process.env.PORT || 3000;
 
 // Connect to database
 connectDB();
@@ -15,24 +18,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Import user routes
+app.use(checkUser);
+app.get('/', (req, res) => {
+    res.send('Welcome to the Manchester United API');
+});
 app.use(userRoutes);
+app.use(playerRoutes);
 
 
-//connect to the database
-// const DB = process.env.MONGO_URI;
-// mongoose.connect(DB)
-// .then(() => {
-//     console.log('DB connected');
-//     app.listen(process.env.PORT || 3000, () =>
-//         console.log('Server is running on port', process.env.PORT || 3000)
-//     );
-// })
-// .catch((err) => {
-//     console.log('DB connection error:', err);
-// });
 
-
-// const port = process.env.PORT || 3000;
-// app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-// });
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

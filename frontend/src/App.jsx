@@ -5,10 +5,9 @@ function App() {
 
   return (
     <div>
-        <BrowserRouter>
-          <AppRoutes/>   
-        </BrowserRouter>
-
+          <BrowserRouter>
+            <AppRoutes/>   
+          </BrowserRouter>
     </div>
   )
 }

@@ -69,6 +69,11 @@ exports.login = async (req, res) => {
     }
 }
 
+// Get user profile
+exports.getProfile = async (req, res) => {
+    res.json({user: req.user});
+};
+
 // logout user
 exports.logout = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });

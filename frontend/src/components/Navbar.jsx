@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../libs/useAuth";
 
-export default function Navbar({ isLoggedIn }) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data, isLoading } = useAuth();
+
+  const user = data?.user;
 
   return (
     <nav className="bg-black text-white px-6 py-4 relative">
@@ -14,7 +18,7 @@ export default function Navbar({ isLoggedIn }) {
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-6">
-          {!isLoggedIn ? (
+          {!user ? (
             <>
               <Link to="/login" className="hover:text-red-500">
                 Login
@@ -32,7 +36,7 @@ export default function Navbar({ isLoggedIn }) {
                 My Team
               </Link>
               <Link to="/profile" className="bg-red-600 px-3 py-1 rounded-lg hover:bg-red-700">
-                Profile
+                {user.username}
               </Link>
             </>
           )}
@@ -50,7 +54,7 @@ export default function Navbar({ isLoggedIn }) {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="absolute top-full left-0 w-full bg-black z-50 md:hidden flex flex-col space-y-4 px-6 py-4">
-          {!isLoggedIn ? (
+          {!user ? (
             <>
               <Link to="/login" className="hover:text-red-500" onClick={() => setIsOpen(false)}>
                 Login

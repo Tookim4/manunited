@@ -27,6 +27,12 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: 'user'
     },
+    team: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        },
+    ],
     createdAt: {
         type: Date,
         default: Date.now

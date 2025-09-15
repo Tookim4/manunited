@@ -32,7 +32,7 @@ export default function Navbar() {
               <Link to="/legends" className="hover:text-red-500">
                 Legends
               </Link>
-              <Link to="/my-team" className="hover:text-red-500">
+              <Link to="/myteam" className="hover:text-red-500">
                 My Team
               </Link>
               <Link to="/profile" className="bg-red-600 px-3 py-1 rounded-lg hover:bg-red-700">
@@ -68,7 +68,7 @@ export default function Navbar() {
               <Link to="/legends" className="hover:text-red-500" onClick={() => setIsOpen(false)}>
                 Legends
               </Link>
-              <Link to="/my-team" className="hover:text-red-500" onClick={() => setIsOpen(false)}>
+              <Link to="/myteam" className="hover:text-red-500" onClick={() => setIsOpen(false)}>
                 My Team
               </Link>
               <Link to="/profile" className="bg-red-600 px-3 py-1 rounded-lg hover:bg-red-700" onClick={() => setIsOpen(false)}>

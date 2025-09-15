@@ -5,6 +5,7 @@ import Login from '../pages/Login'
 import Signup from '../pages/Signup'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import MyTeam from '../pages/MyTeam'
 
 const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
                 <Route path="/legends" element={<Legends />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path='/myteam' element={ <MyTeam />} />
             </Routes>
       <Footer/>
     </div>

@@ -1,50 +1,29 @@
 import { useState } from "react";
 import PlayerCard from "../components/PlayerCard";
-
-// Sample data (later replace with API call)
-const players = [
-  {
-    id: 1,
-    name: "Ryan Giggs",
-    nationality: "Wales",
-    position: "Midfielder",
-    goals: 114,
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/2/23/Ryan_Giggs_2011.jpg",
-  },
-  {
-    id: 2,
-    name: "Paul Scholes",
-    nationality: "England",
-    position: "Midfielder",
-    goals: 155,
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/7/74/Paul_Scholes.jpg",
-  },
-  {
-    id: 3,
-    name: "Eric Cantona",
-    nationality: "France",
-    position: "Forward",
-    goals: 82,
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/2/24/Eric_Cantona.jpg",
-  },
-];
+import { getPlayers } from "../libs/apis/legendApi";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Legends() {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
 
-  const togglePlayer = (player) => {
-    if (selectedPlayers.find((p) => p.id === player.id)) {
-      setSelectedPlayers(selectedPlayers.filter((p) => p.id !== player.id));
-    } else {
-      setSelectedPlayers([...selectedPlayers, player]);
-    }
-  };
+  const {isLoading, error, data: players} = useQuery({
+    queryKey: ['players'],
+    queryFn: getPlayers,
+  });
+
+  if (isLoading) return <div className="text-center text-white mt-20">Loading...</div>;
+  if (error) return <div className="text-center text-red-500 mt-20">Error loading players</div>;
+
+  // const togglePlayer = (player) => {
+  //   if (selectedPlayers.find((p) => p.id === player.id)) {
+  //     setSelectedPlayers(selectedPlayers.filter((p) => p.id !== player.id));
+  //   } else {
+  //     setSelectedPlayers([...selectedPlayers, player]);
+  //   }
+  // };
 
   // Group players by position
-  const grouped = players.reduce((acc, player) => {
+  const grouped = players?.reduce((acc, player) => {
     if (!acc[player.position]) acc[player.position] = [];
     acc[player.position].push(player);
     return acc;
@@ -65,10 +44,10 @@ export default function Legends() {
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {players.map((player) => (
               <PlayerCard
-                key={player.id}
+                key={player._id}
                 player={player}
-                isSelected={!!selectedPlayers.find((p) => p.id === player.id)}
-                onToggle={togglePlayer}
+                // isSelected={!!selectedPlayers.find((p) => p.id === player.id)}
+                // onToggle={togglePlayer}
               />
             ))}
           </div>

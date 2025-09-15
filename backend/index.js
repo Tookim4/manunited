@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 require('dotenv').config();
 const userRoutes = require('./routes/userRoutes');
 const playerRoutes = require('./routes/playerRoutes');
+const teamRoutes = require('./routes/teamRoutes');
 const connectDB = require('./config/db');
 const cors = require('cors');
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 });
 app.use(userRoutes);
 app.use(playerRoutes);
+app.use('/team', teamRoutes);
 
 
 

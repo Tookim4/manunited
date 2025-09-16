@@ -69,6 +69,27 @@ exports.login = async (req, res) => {
     }
 }
 
+exports.getCurrentUser = (req, res) => {
+    const token = req.cookies.jwt;
+    if (token) {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+            if (err) {
+                console.log(err.message);
+                res.status(401).json({ user: null });
+            } else {
+                User.findById(decodedToken.id)
+                    .then(user => res.status(200).json({ user }))
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json({ user: null });
+                    });
+            }
+        });
+    } else {
+        res.status(401).json({ user: null });
+    } 
+};
+
 // Get user profile
 exports.getProfile = async (req, res) => {
     res.json({user: req.user});

@@ -14,5 +14,7 @@ router.get('/logout', authController.logout);
 // Get user profile route
 router.get('/profile', authRequire, authController.getProfile);
 
+router.get('/current-user', authController.getCurrentUser);
+
 
 module.exports = router;

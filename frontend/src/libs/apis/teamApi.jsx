@@ -30,3 +30,18 @@ export const addToTeam = async (playerId) => {
     }
     return data;    
 }
+
+export const removeFromTeam = async (playerId) => {
+    const response = await fetch(`${API_BASE_URL}/team/${playerId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+    });
+    const data = await response.json();
+    if (!response.ok) {
+        throw data;
+    }
+    return data;    
+}

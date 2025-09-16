@@ -36,7 +36,7 @@ export const signup = async (signupData) => {
 
 //user profile logic
 export const getCurrentUser = async () => {
-    const res = await fetch(`${API_BASE_URL}/profile`, {
+    const res = await fetch(`${API_BASE_URL}/current-user`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

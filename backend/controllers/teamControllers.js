@@ -19,20 +19,41 @@ exports.getMyTeam = async (req, res) => {
 // add player to my team
 exports.addPlayerToTeam = async (req, res) => {
     try {
-        const {playerId} = req.body;
-        const user = await User.findById(req.user.id);
+    const { playerId } = req.body;
+    // use $addToSet to avoid duplicates and don't load/save entire user doc
+    const updated = await User.findByIdAndUpdate(
+      req.user._id,
+      { $addToSet: { team: playerId } }, // only touches team
+      { new: true }
+    ).populate('team');
 
-        if (user.team.includes(playerId)) {
-            return res.status(400).json({ message: 'Player already in team' });
-        }
+    return res.status(200).json({ team: updated.team });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Server error' });
+}
+}
 
-        user.team.push(playerId);
-        await user.save();
+// remove player from my team
+exports.removePlayerFromTeam = async (req, res) => {
+    try {
+    const userId = req.user.id;
+    const { playerId } = req.params;
 
-
-        const updatedUser = await User.findById(req.user.id).populate('team');
-        res.status(200).json(updatedUser.team);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
     }
+
+    user.team = user.team.filter(
+      (player) => player.toString() !== playerId
+    );
+    
+    await user.save();
+
+    return res.status(200).json({ team: user.team });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Server error' });
+  }
 }

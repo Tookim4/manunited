@@ -1,8 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import bg from '../assets/bg.jpg' // Ensure you have a background image in this path
+import bg from '../assets/bg.jpg' 
+import { useAuth } from '../libs/useAuth'
 
 const Home = () => {
+  const { data, isLoading } = useAuth();
+
+  const user = data?.user;
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <section
       className="relative h-screen flex items-center justify-center text-center text-white"
@@ -21,12 +29,22 @@ const Home = () => {
         </p>
 
         <div className="flex justify-center gap-4">
-          <Link
+          {!user ?(
+            <Link
             to="/signup"
             className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-lg font-medium"
-          >
+            >
             Signup
           </Link>
+          ) : (
+            <Link
+            to="/myteam"
+            className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-lg font-medium"
+            >
+            My Team
+          </Link>
+          )}
+         
           <Link
             to="/legends"
             className="px-6 py-3 border border-white hover:bg-white hover:text-black rounded-lg text-lg font-medium"

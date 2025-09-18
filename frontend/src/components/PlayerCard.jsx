@@ -53,7 +53,7 @@ export default function PlayerCard({ player, isSelected}) {
       {/* Player Info */}
       <div className="p-4 space-y-2">
         <h3 className="text-xl font-heading text-red-500">{player.name}</h3>
-        <p className="text-sm text-gray-400">🇳🇴 {player.nationality}</p>
+        <p className="text-sm text-gray-400"> {player.nationality}</p>
         <p className="text-sm">
           <span className="font-medium">Position:</span> {player.position}
         </p>

@@ -30,7 +30,7 @@ const MyTeam = () => {
             <h2 className="text-lg font-bold text-red-500">{player.name}</h2>
             <p>{player.position}</p>
             <p>{player.nationality}</p>
-            <p>Goals: {player.totalGoals}</p>
+            <p>Goals: {player.goals}</p>
           </div>
         ))}
       </div>

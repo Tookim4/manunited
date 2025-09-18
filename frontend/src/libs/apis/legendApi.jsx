@@ -17,14 +17,11 @@ export const getPlayers = async () => {
 }
 
 // Create legend
-export const createPlayer = async (player) => {
+export const createPlayer = async (formData) => {
     const response = await fetch(`${API_BASE_URL}/players/create_player`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
         credentials: 'include',
-        body: JSON.stringify(player),
+        body: formData,
     });
     const data = await response.json();
     if (!response.ok) {

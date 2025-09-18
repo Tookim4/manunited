@@ -3,10 +3,16 @@ const Player = require('../models/playerModel');
 // Create a new player
 exports.createPlayer = async (req, res) => {
   try {
+    const {name, nationality, position, goals} = req.body;
+    const image = req.file ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}` : null;
+
+
     const player = new Player({
-        name: req.body.name,
-        position: req.body.position,
-        nationality: req.body.nationality,
+        name,
+        position,
+        nationality,
+        goals,
+        image,
     });
 
     const savedPlayer = await player.save();

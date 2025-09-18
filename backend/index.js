@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
+const path = require('path')
 
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRoutes);   // 👈 prefix helps organize routes
 app.use('/players', playerRoutes);
 app.use('/team', teamRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 4. Catch-all for unknown routes
 app.use((req, res, next) => {

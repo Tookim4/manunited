@@ -15,10 +15,14 @@ name: {
     type: String,
     required: true,
   },
-//   image: {
-//     type: String, 
-//     default: '',
-//   },
+  goals: {
+    type: Number,
+    required: true,
+  },
+  image: {
+    type: String, 
+    default: '',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

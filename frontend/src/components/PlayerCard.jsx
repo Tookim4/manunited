@@ -1,7 +1,12 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {addToTeam, removeFromTeam} from "../libs/apis/teamApi";
+import  usePlayers  from "../libs/usePlayers";
+import {useAuth} from "../libs/useAuth"
 
 export default function PlayerCard({ player, isSelected}) {
+  const {delete_legend_mutation} = usePlayers();
+  const { data: authData} = useAuth();
+  const isAdmin = authData?.user?.username === 'admin';
   const queryClient = useQueryClient();
 
   const addmutation = useMutation({
@@ -25,6 +30,12 @@ export default function PlayerCard({ player, isSelected}) {
       addmutation.mutate(player._id);
     }
   };
+
+  const handleDelete = () => {
+    if(window.confirm(`Are you sure`)) {
+      delete_legend_mutation.mutate(player._id);
+    }
+  }
 
   const isLoading = addmutation.isLoading || removemutation.isLoading;
 
@@ -66,6 +77,18 @@ export default function PlayerCard({ player, isSelected}) {
             ? "Added to Team"
             : "Add to Team"}
         </button>
+        <div>
+{isAdmin && (
+          <button
+          onClick={handleDelete}
+          disabled={delete_legend_mutation.isLoading}
+          className="bg-red-600 hover:bg-red-700 px-4 py-2 mt-3 rounded text-white w-full">
+            Delete
+          </button>
+        )}
+        </div>
+
+        
       </div>
     </div>
   );

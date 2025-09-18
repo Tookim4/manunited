@@ -2,7 +2,7 @@ import { API_BASE_URL } from '../../config/api';
 
 // login logic
 export const login = async (loginData) => {
-    const response = await fetch(`${API_BASE_URL}/login`, {
+    const response = await fetch(`${API_BASE_URL}/users/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export const login = async (loginData) => {
 
 //signup logic
 export const signup = async (signupData) => {
-    const response = await fetch(`${API_BASE_URL}/register`, {
+    const response = await fetch(`${API_BASE_URL}/users/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export const signup = async (signupData) => {
 
 //user profile logic
 export const getCurrentUser = async () => {
-    const res = await fetch(`${API_BASE_URL}/current-user`, {
+    const res = await fetch(`${API_BASE_URL}/users/current-user`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

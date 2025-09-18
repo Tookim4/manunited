@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const User = require('./models/UserModel');
+const User = require('./models/userModel');
 
 (async () => {
   try {

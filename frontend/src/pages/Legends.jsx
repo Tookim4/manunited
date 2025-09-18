@@ -1,29 +1,16 @@
-import { useState, useCallback, useMemo,  } from "react";
+import {  useMemo } from "react";
 import PlayerCard from "../components/PlayerCard";
-import { getPlayers } from "../libs/apis/legendApi";
-import { useQuery } from "@tanstack/react-query";
+import  usePlayers  from "../libs/usePlayers";
 import { useTeam } from "../libs/useTeam";
+import PlayerForm from "../components/PlayerForm";
+import { useAuth } from "../libs/useAuth";
 
 export default function Legends() {
-  // const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const {data: players, isLoading, error} = useQuery({
-    queryKey: ['players'],
-    queryFn: getPlayers,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    cacheTime: 30 * 60 * 1000, // 30 minutes
-  });
-
-  // const {data: players, isLoading, error} = useTeam();
-
+  const {get_legends_query, create_legend_mutation} = usePlayers();
+  const { data: players, isLoading, error } = get_legends_query;
+  const { data: authData} = useAuth();
+  const isAdmin = authData?.user?.username === 'admin';
   const {data: team} = useTeam();
-  
-
-  // const teamIds = useMemo(() => {
-  //   if (!Array.isArray(team)) return new Set();
-  //   return new Set(team.map((p) => p._id ?? p.id));
-  // }, [team]);
-
-
   
 
   // Group players by position
@@ -46,6 +33,10 @@ export default function Legends() {
       <h1 className="text-4xl font-heading text-red-600 text-center mb-12">
         Manchester United Legends
       </h1>
+
+      {isAdmin && (
+        <PlayerForm onSubmit={(data) => create_legend_mutation.mutate(data)} />
+      )}
 
       {Object.entries(grouped).map(([position, players]) => (
         <div key={position} className="mb-16">

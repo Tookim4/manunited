@@ -17,7 +17,7 @@ connectDB();
 
 // 2. Global middleware
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://manunited-ebon.vercel.app',
   credentials: true,
 }));
 app.use(cookieParser());

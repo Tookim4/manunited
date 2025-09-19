@@ -27,7 +27,6 @@ exports.getAllPlayers = async (req, res) => {
   try {
     const players = await Player.find();
     res.status(200).json(players);
-    console.log(players);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

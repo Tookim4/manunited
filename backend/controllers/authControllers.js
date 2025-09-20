@@ -33,6 +33,9 @@ const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: maxAge });
 };
 
+// environment 
+const isProduction = process.env.NODE_ENV === "production";
+
 // Register
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -44,8 +47,8 @@ exports.register = async (req, res) => {
     res.cookie('jwt', token, {
       httpOnly: true,
       maxAge: maxAge * 1000,
-      sameSite: 'lax',
-      secure: true,
+      sameSite: isProduction ? "None" : "Lax",
+      secure: isProduction,
     });
 
     const { password: pw, ...safeUser } = user._doc;
@@ -67,8 +70,8 @@ exports.login = async (req, res) => {
     res.cookie('jwt', token, {
       httpOnly: true,
       maxAge: maxAge * 1000,
-      sameSite: 'lax',
-      secure: true,
+      sameSite: isProduction ? "None" : "Lax",
+      secure: isProduction,
     });
 
     const { password: pw, ...safeUser } = user._doc;
@@ -94,8 +97,8 @@ exports.logout = (req, res) => {
   res.cookie('jwt', '', {
     httpOnly: true,
     maxAge: 1,
-    sameSite: 'lax',
-    secure: false
+    sameSite: isProduction ? "None" : "Lax",
+    secure: isProduction,
   });
   console.log('User logged out');
   res.status(200).json({ message: 'Logged out successfully' });

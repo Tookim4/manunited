@@ -45,7 +45,7 @@ exports.register = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
       sameSite: 'lax',
-      secure: false
+      secure: true,
     });
 
     const { password: pw, ...safeUser } = user._doc;
@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
       sameSite: 'lax',
-      secure: false
+      secure: true,
     });
 
     const { password: pw, ...safeUser } = user._doc;

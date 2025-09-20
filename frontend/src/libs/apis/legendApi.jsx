@@ -1,47 +1,38 @@
 import { API_BASE_URL } from '../../config/api';
+import axios from 'axios';
 
 // get legend data
 export const getPlayers = async () => {
-    const response = await fetch(`${API_BASE_URL}/players/get_players`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-    });
-    const data = await response.json();
-    if (!response.ok) {
-        throw data;
+    try {
+        const response = await axios.get(`${API_BASE_URL}/players/get_players`, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
     }
-    return data;
 }
 
 // Create legend
 export const createPlayer = async (formData) => {
-    const response = await fetch(`${API_BASE_URL}/players/create_player`, {
-        method: 'POST',
-        credentials: 'include',
-        body: formData,
-    });
-    const data = await response.json();
-    if (!response.ok) {
-        throw data;
+    try {
+        const response = await axios.post(`${API_BASE_URL}/players/create_player`, formData, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
     }
-    return data;
 }
 
 // delete legend
 export const deletePlayer = async (playerId) => {
-    const response = await fetch(`${API_BASE_URL}/players/delete_player/${playerId}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-    });
-    const data = await response.json();
-    if (!response.ok) {
-        throw data;
+    try {
+        const response = await axios.delete(`${API_BASE_URL}/players/delete_player/${playerId}`, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
     }
-    return data;
 }

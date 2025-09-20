@@ -1,50 +1,53 @@
 import { API_BASE_URL } from '../../config/api';
+import axios from 'axios';
 
 // login logic
 export const login = async (loginData) => {
-    const response = await fetch(`${API_BASE_URL}/users/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-        credentials: 'include',
-    });
-    const data = await response.json();
-    if (!response.ok) {
-        throw data;
+    try {
+        const response = await axios.post(`${API_BASE_URL}/users/login`, loginData, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
     }
-    return data;
 }
 
 //signup logic
 export const signup = async (signupData) => {
-    const response = await fetch(`${API_BASE_URL}/users/register`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(signupData),
-        credentials: 'include',
-    });
-    const data = await response.json();
-    if (!response.ok) {
-        throw data;
+    try {
+        const response = await axios.post(`${API_BASE_URL}/users/register`, signupData, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
     }
-    return data;
 }
 
 //user profile logic
 export const getCurrentUser = async () => {
-    const res = await fetch(`${API_BASE_URL}/users/current-user`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-    });
-    if (!response.ok) {
-        return null;
+    try {
+        const response = await axios.get(`${API_BASE_URL}/users/current-user`, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        if (error.response?.status === 401) {
+            return null;
+        }
+        throw error.response?.data || error.message;
     }
-    return res.json;
+}
+
+// logout logic
+export const logout = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/users/logout`, {
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
 }

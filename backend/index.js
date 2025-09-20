@@ -17,10 +17,10 @@ connectDB();
 
 // 2. Global middleware
 app.use(cors({
-  origin: ['https://manunited-ebon.vercel.app'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: 'https://manunited-ebon.vercel.app',
   credentials: true,
 }));
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('Welcome to the Manchester United API');
 });
-app.use('/users', userRoutes);   // 👈 prefix helps organize routes
+app.use('/users', userRoutes);   
 app.use('/players', playerRoutes);
 app.use('/team', teamRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

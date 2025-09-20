@@ -6,6 +6,7 @@ import Signup from '../pages/Signup'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import MyTeam from '../pages/MyTeam'
+import MyProfile from '../pages/MyProfile'
 
 const AppRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const AppRoutes = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path='/myteam' element={ <MyTeam />} />
+                <Route path='/myprofile' element={<MyProfile/>} />
             </Routes>
       <Footer/>
     </div>

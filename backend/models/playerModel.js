@@ -19,6 +19,22 @@ name: {
     type: Number,
     required: true,
   },
+  appearances: {
+    type: Number,
+    required: true,
+  },
+  assists: {
+    type: Number,
+    required: true,
+  },
+  trophies: {
+    type: Number,
+    required: true,
+  },
+  bio: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String, 
     default: '',

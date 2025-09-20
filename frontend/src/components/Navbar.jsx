@@ -144,7 +144,7 @@ export default function Navbar() {
                   My Team
                 </Link>
                 <Link
-                  to="/profile"
+                  to="/myprofile"
                   className="px-6 py-4 text-[#F6EFD2] hover:bg-[#2A2A2A] hover:text-[#E43636] font-semibold uppercase tracking-wide transition-colors duration-200 border-b border-[#2A2A2A]"
                   onClick={() => setIsOpen(false)}
                 >

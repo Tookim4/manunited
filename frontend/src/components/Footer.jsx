@@ -95,14 +95,14 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="pt-8 border-t border-[#2A2A2A]">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-6 text-sm text-[#E2DDB4]">
+            {/* <div className="flex items-center space-x-6 text-sm text-[#E2DDB4]">
               <span>⚽ Manchester United FC</span>
               <span className="hidden md:block">|</span>
               <span>Est. 1878</span>
-            </div>
+            </div> */}
 
             <div className="text-[#E2DDB4] text-sm">
-              &copy; {new Date().getFullYear()} United Legends Library. All rights reserved.
+              &copy; {new Date().getFullYear()} United Legends Library.
             </div>
           </div>
         </div>
